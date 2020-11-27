@@ -1,0 +1,17 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    border: 1px solid red;
+    width: 20%;
+    padding: 5px;
+    
+    input {
+        width: 50%;
+    }
+
+    button {
+        width: 50%;
+        align-self: center;
+    }
+}
