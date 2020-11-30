@@ -4,7 +4,6 @@ import { Context } from 'https://deno.land/x/oak/mod.ts'
 import { UserSchema } from '../Schemas/userSchema.ts'
 
 const client = new MongoClient;
-client.connectWithUri(`mongodb+srv://Kanadets:${Deno.env.get("DB_PASSWORD")}@cluster0.cntyh.mongodb.net/test?retryWrites=true&w=majority`);
 
 const db = client.database('test')
 const users = db.collection<UserSchema>("users")
@@ -12,9 +11,7 @@ const users = db.collection<UserSchema>("users")
 export const addUser = async ({ request, response }: Context) => {
   const body = await request.body();
 
-  const { username, password } = JSON.parse(await body.value);
-
-  console.log(!!username, !!password)
+  const { username, password } = await body.value;
 
   try {
     if (!!username && !!password){
@@ -33,6 +30,7 @@ export const addUser = async ({ request, response }: Context) => {
     } 
   } catch (error) {
     response.status = 500
+    response.body = error
   }
 }
 
